@@ -64,4 +64,35 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void calculate_total_amount_of_bill() throws itemNotFoundException{
+
+
+        restaurant.addToMenu("Noodles",40);
+        restaurant.addToMenu("Gobi manchurian",70);
+        assertEquals(110,restaurant.calculateBill(new String[]{"Noodles","Gobi manchurian"}));
+    }
+
+    @Test
+    public void if_item_not_selected_then_return_zero() throws itemNotFoundException {
+
+
+        restaurant.addToMenu("Noodles",40);
+        restaurant.addToMenu("Gobi manchurian",70);
+        assertEquals(0,restaurant.calculateBill(new String[0]));
+
+
+    }
+    @Test
+    public void if_item_not_found_throw_exception(){
+
+
+        restaurant.addToMenu("Noodles",40);
+        restaurant.addToMenu("Gobi manchurian",70);
+        assertThrows(itemNotFoundException.class,()->{
+            restaurant.calculateBill(new String[]{"Noodles"});
+        });
+
+    }
 }
